@@ -1,26 +1,26 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from '../users/user.entity';
-
-@Entity('grades')
+import { User } from '../users/user.entity';  // Adjusted path
+import { Subject } from '../subjects/subject.entity'; // Needs creation
+@Entity()
 export class Grade {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    subject: string;
+    @Column({ type: 'decimal', precision: 3, scale: 1 })
+    value: number;
 
-    @Column('decimal', { precision: 3, scale: 1 })
-    grade: number;
+    @Column()
+    weight: number;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    date: Date;
-
-    @Column({ nullable: true })
-    description: string;
+    created_at: Date;
 
     @ManyToOne(() => User, user => user.grades)
     user: User;
 
+    @ManyToOne(() => Subject)
+    subject: Subject;
+
     @Column()
-    userId: number;
+    term_id: number; // Will become relation after Term entity exists
 }

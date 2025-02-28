@@ -1,17 +1,19 @@
-import { IsOptional, IsNumber, IsString, Min, Max } from 'class-validator';
+import { IsOptional, IsNumber } from 'class-validator';
 
 export class UpdateGradeDto {
     @IsOptional()
-    @IsString()
-    subject?: string;
+    @IsNumber()
+    subjectId?: number; // subject as an ID
 
     @IsOptional()
     @IsNumber()
-    @Min(0)
-    @Max(6)
-    grade?: number;
+    value?: number; // matching the entity property name
 
     @IsOptional()
-    @IsString()
-    semester?: string;
+    @IsNumber()
+    weight: number;     // if needed
+
+    @IsOptional()
+    @IsNumber()
+    termId?: number; // matching the entity's term_id
 }
